@@ -3,328 +3,365 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AuraStore - Download APK & Game</title>
-    <!-- Google Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Product+Sans&display=swap" rel="stylesheet">
+    <title>AuraStore Pro - Mod APK Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Product+Sans:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* --- CSS VARIABLES & RESET --- */
         :root {
-            --primary-color: #01875f; /* Green Play Store */
+            --primary: #01875f;
             --primary-dark: #016e4a;
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-main: #202124;
-            --text-secondary: #5f6368;
-            --shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 2px 6px 2px rgba(60,64,67,0.15);
-            --radius: 12px;
+            --bg: #f8f9fa;
+            --card: #ffffff;
+            --text: #202124;
+            --gray: #5f6368;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); overflow-x: hidden; }
-        
-        /* --- HEADER --- */
+        body { background: var(--bg); color: var(--text); line-height: 1.6; }
+
+        /* HEADER */
         header {
-            position: fixed; top: 0; left: 0; right: 0; height: 64px;
-            background: var(--card-bg); display: flex; align-items: center;
-            justify-content: space-between; padding: 0 24px; z-index: 1000;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: fixed; top: 0; width: 100%; height: 65px; background: var(--card);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 5%; z-index: 1000; box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        .logo { font-family: 'Product Sans', sans-serif; font-size: 22px; color: var(--text-main); font-weight: 700; }
-        .logo i { color: var(--primary-color); margin-right: 5px; }
-        
-        .search-bar {
-            flex: 1; max-width: 600px; margin: 0 20px; display: flex;
-            background: #f1f3f4; border-radius: 8px; padding: 8px 16px; align-items: center;
-        }
-        .search-bar input {
-            border: none; background: transparent; outline: none; flex: 1; font-size: 16px; margin-left: 10px;
-        }
-        
-        .user-actions { display: flex; align-items: center; gap: 15px; }
-        .btn-icon { font-size: 20px; color: var(--text-secondary); cursor: pointer; }
-        
-        .btn-login {
-            background-color: #1a73e8; color: white; border: none; padding: 9px 20px;
-            border-radius: 4px; font-weight: 500; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 8px;
-        }
-        .btn-login:hover { background-color: #1558b0; }
-        
-        .profile-pic {
-            width: 36px; height: 36px; border-radius: 50%; object-fit: cover; cursor: pointer; display: none;
-            border: 2px solid var(--primary-color);
-        }
+        .logo { font-family: 'Product Sans'; font-size: 24px; font-weight: bold; color: var(--text); }
+        .logo i { color: var(--primary); }
 
-        /* --- MAIN CONTENT --- */
-        main { margin-top: 80px; padding: 20px; max-width: 1200px; margin-left: auto; margin-right: auto; }
-        
-        .section-title { font-size: 18px; font-weight: 500; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
-        
-        /* --- APP GRID --- */
+        .search-container { flex: 0.6; position: relative; }
+        .search-container input {
+            width: 100%; padding: 10px 15px 10px 40px; border: none;
+            background: #f1f3f4; border-radius: 8px; outline: none;
+        }
+        .search-container i { position: absolute; left: 15px; top: 12px; color: var(--gray); }
+
+        .user-nav { display: flex; align-items: center; gap: 15px; }
+        .btn-login { background: #1a73e8; color: white; border: none; padding: 8px 20px; border-radius: 5px; cursor: pointer; font-weight: 500; }
+        .profile-img { width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: none; border: 2px solid var(--primary); }
+
+        /* MAIN CONTENT */
+        main { margin-top: 85px; padding: 20px 5%; }
+        .hero { text-align: center; padding: 50px 0; }
+        .hero h1 { font-family: 'Product Sans'; font-size: 42px; margin-bottom: 10px; }
+
         .app-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px;
+            margin-top: 30px;
         }
-        
         .app-card {
-            background: var(--card-bg); padding: 15px; border-radius: var(--radius);
-            cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; text-align: center;
+            background: var(--card); padding: 20px; border-radius: 15px; text-align: center;
+            transition: 0.3s; cursor: pointer; position: relative;
         }
-        .app-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
-        
-        .app-icon {
-            width: 80px; height: 80px; border-radius: 16px; margin: 0 auto 10px;
-            object-fit: cover; background: #eee;
-        }
-        .app-title { font-size: 14px; font-weight: 500; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .app-dev { font-size: 12px; color: var(--text-secondary); }
-        .app-rating { font-size: 12px; color: #fb8c00; margin-top: 5px; }
-        
-        /* --- FLOATING UPLOAD BUTTON --- */
-        .fab-upload {
-            position: fixed; bottom: 30px; right: 30px; width: 56px; height: 56px;
-            background: var(--primary-color); color: white; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; font-size: 24px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3); cursor: pointer; z-index: 900;
-            display: none; /* Hidden if not logged in */
-        }
-        .fab-upload:hover { background: var(--primary-dark); transform: scale(1.1); }
+        .app-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+        .app-icon { width: 90px; height: 90px; border-radius: 20px; object-fit: cover; margin-bottom: 15px; }
+        .app-rating { color: #f4b400; font-size: 14px; font-weight: bold; }
 
-        /* --- MODAL UPLOAD --- */
+        /* MODAL */
         .modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+            z-index: 2000; align-items: center; justify-content: center; padding: 20px;
         }
         .modal-content {
-            background: white; width: 90%; max-width: 500px; border-radius: 8px; padding: 25px;
-            position: relative; animation: slideDown 0.3s ease;
+            background: white; width: 100%; max-width: 500px; border-radius: 12px;
+            padding: 30px; position: relative; max-height: 90vh; overflow-y: auto;
         }
-        @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        
-        .close-modal { position: absolute; top: 15px; right: 15px; font-size: 20px; cursor: pointer; color: #666; }
-        
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 25px; cursor: pointer; }
+
+        /* FORM STYLES */
         .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-size: 14px; color: #444; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 500; }
         .form-group input, .form-group textarea {
-            width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; outline: none;
+            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; outline: none;
         }
-        .form-group input:focus { border-color: var(--primary-color); }
-        
-        .btn-submit {
-            width: 100%; background: var(--primary-color); color: white; border: none;
-            padding: 12px; border-radius: 6px; font-size: 16px; font-weight: 500; cursor: pointer;
+        .btn-action {
+            width: 100%; background: var(--primary); color: white; border: none;
+            padding: 12px; border-radius: 8px; font-size: 16px; cursor: pointer; transition: 0.2s;
         }
-        .btn-submit:disabled { background: #ccc; cursor: not-allowed; }
-        
-        /* Progress Bar */
-        .progress-container { display: none; margin-top: 15px; }
-        .progress-bar { width: 100%; height: 6px; background: #eee; border-radius: 3px; overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--primary-color); width: 0%; transition: width 0.2s; }
-        
-        /* --- WELCOME SCREEN (LOGIN) --- */
-        .welcome-screen {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            height: 80vh; text-align: center;
+        .btn-action:disabled { background: #ccc; }
+
+        /* FAB */
+        .fab {
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+            background: var(--primary); color: white; border-radius: 50%;
+            display: none; align-items: center; justify-content: center;
+            font-size: 24px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); cursor: pointer;
         }
-        .welcome-screen h1 { font-family: 'Product Sans'; font-size: 40px; margin-bottom: 10px; }
-        .welcome-screen p { color: #666; margin-bottom: 30px; max-width: 400px; }
-        
-        /* Loading Spinner */
-        .spinner {
-            border: 4px solid #f3f3f3; border-top: 4px solid #3498db;
-            border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;
-        }
+
+        /* COMMENTS */
+        .comment-section { margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px; }
+        .comment { background: #f9f9f9; padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 13px; }
+
+        .spinner { border: 3px solid #f3f3f3; border-top: 3px solid var(--primary); border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; display: inline-block; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
     </style>
 </head>
 <body>
 
-    <!-- HEADER -->
     <header>
         <div class="logo"><i class="fab fa-android"></i> AuraStore</div>
-        
-        <div class="search-bar">
-            <i class="fas fa-search" style="color: #888;"></i>
-            <input type="text" id="searchInput" placeholder="Search apps & games...">
+        <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Cari Game atau Aplikasi Mod...">
         </div>
-
-        <div class="user-actions">
-            <i class="fas fa-cog btn-icon"></i>
-            
-            <!-- Tombol Login (Awal) -->
-            <button class="btn-login" id="loginBtn">
-                <i class="fab fa-google"></i> <span id="loginText">Login</span>
-            </button>
-
-            <!-- Foto Profil (Setelah Login) -->
-            <img src="" alt="User" class="profile-pic" id="userPhoto" onclick="handleLogout()" title="Klik untuk Logout">
+        <div class="user-nav">
+            <button class="btn-login" id="loginBtn">Login</button>
+            <img src="" class="profile-img" id="userImg" title="Klik untuk Logout">
         </div>
     </header>
 
-    <!-- MAIN CONTENT -->
-    <main id="mainContainer">
-        
-        <!-- Tampilan Sebelum Login -->
-        <div class="welcome-screen" id="welcomeScreen">
-            <h1>Selamat Datang di AuraStore</h1>
-            <p>Store APK & Game mod terbaik dengan kecepatan tinggi dan tanpa iklan.</p>
-            <button class="btn-login" id="heroLoginBtn" style="font-size: 18px; padding: 12px 30px; justify-content: center;">
-                <i class="fab fa-google"></i> Masuk dengan Google
+    <main>
+        <div id="welcomeView" class="hero">
+            <h1>AuraStore Pro</h1>
+            <p>Gudang Aplikasi & Game Mod Terlengkap. Login untuk mulai mendownload.</p>
+            <button class="btn-login" id="heroLoginBtn" style="margin-top:20px; padding: 15px 40px; font-size: 18px;">
+                Mulai Sekarang
             </button>
         </div>
 
-        <!-- Tampilan Utama (Setelah Login) -->
-        <div id="appContent" style="display: none;">
-            <div class="section-title">
-                <span> Aplikasi Rekomendasi Untuk Anda</span>
+        <div id="storeView" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 class="section-title">Aplikasi Populer</h2>
             </div>
-            
-            <!-- Grid Aplikasi -->
             <div class="app-grid" id="appGrid">
-                <!-- Aplikasi akan di-render lewat JS -->
-            </div>
+                </div>
         </div>
     </main>
 
-    <!-- Floating Action Button Upload -->
-    <div class="fab-upload" id="fabUpload" onclick="openUploadModal()">
-        <i class="fas fa-plus"></i>
-    </div>
+    <div class="fab" id="openUpload"><i class="fas fa-plus"></i></div>
 
-    <!-- MODAL UPLOAD -->
     <div class="modal" id="uploadModal">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeUploadModal()">&times;</span>
-            <h2 style="margin-bottom: 20px;">Upload Aplikasi Baru</h2>
-            
-            <form id="uploadForm" onsubmit="handleUpload(event)">
+            <span class="close-btn" id="closeUpload">×</span>
+            <h2 style="margin-bottom:20px">Upload Mod Baru</h2>
+            <form id="uploadForm">
                 <div class="form-group">
                     <label>Nama Aplikasi</label>
-                    <input type="text" id="appName" required placeholder="Contoh: Game RPG Terbaru">
+                    <input type="text" id="upName" placeholder="Contoh: GTA San Andreas Mod" required>
                 </div>
-                
                 <div class="form-group">
-                    <label>Developer</label>
-                    <input type="text" id="appDev" required placeholder="Nama Anda / Studio">
+                    <label>Icon URL</label>
+                    <input type="url" id="upIcon" placeholder="https://link-gambar.com/icon.png" required>
                 </div>
-
                 <div class="form-group">
-                    <label>File APK <small>(Max 50MB)</small></label>
-                    <input type="file" id="appFile" accept=".apk" required>
+                    <label>Pilih File APK</label>
+                    <input type="file" id="upFile" accept=".apk" required>
                 </div>
-
-                <button type="submit" class="btn-submit" id="uploadBtn">Upload Aplikasi</button>
-                
-                <div class="progress-container" id="progressContainer">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
-                    <p style="font-size: 12px; margin-top: 5px; color: #666;" id="progressText">Uploading...</p>
+                <button type="submit" class="btn-action" id="submitUpload">Upload Sekarang</button>
+                <div id="uploadProgress" style="display:none; margin-top:10px; text-align:center">
+                    <div class="spinner"></div> <span id="percentText">0% Uploading...</span>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- FIREBASE SDK & LOGIC -->
+    <div class="modal" id="detailModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeDetail">×</span>
+            <div id="detailBody" style="text-align: center;">
+                </div>
+            <hr style="margin: 20px 0">
+            <h3>Komentar & Rating</h3>
+            <div class="form-group" style="margin-top:10px">
+                <select id="userRating" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd">
+                    <option value="5">⭐⭐⭐⭐⭐ (Sangat Bagus)</option>
+                    <option value="4">⭐⭐⭐⭐ (Bagus)</option>
+                    <option value="3">⭐⭐⭐ (Lumayan)</option>
+                    <option value="2">⭐⭐ (Kurang)</option>
+                    <option value="1">⭐ (Buruk)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <textarea id="userComment" placeholder="Tulis pendapatmu tentang aplikasi ini..." rows="3"></textarea>
+            </div>
+            <button class="btn-action" id="submitComment">Kirim Ulasan</button>
+            <div class="comment-section" id="commentList">
+                </div>
+        </div>
+    </div>
+
     <script type="module">
-        // Import Firebase SDKs dari CDN
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
         // ==========================================
-        // TODO: GANTI DENGAN KONFIGURASI FIREBASE ANDA
+        // KONFIGURASI FIREBASE (LU ISI SENDIRI!)
         // ==========================================
         const firebaseConfig = {
-              apiKey: "AIzaSyDEQPbyTMnAv5wKmPzSkoUxxt-troi1Zy4",
-              authDomain: "my-lacak.firebaseapp.com",
-              projectId: "my-lacak",
-              storageBucket: "my-lacak.firebasestorage.app",
-              messagingSenderId: "629191404429",
-              appId: "1:629191404429:web:b20db7a5455dd99a2f2bc4
+            apiKey: "AIzaSyDEQPbyTMnAv5wKmPzSkoUxxt-troi1Zy4",
+            authDomain: "my-lacak.firebaseapp.com",
+            projectId: "my-lacak",
+            storageBucket: "my-lacak.firebasestorage.app",
+            messagingSenderId: "629191404429",
+            appId: "1:629191404429:web:b20db7a5455dd99a2f2bc4"
         };
 
-        // Inisialisasi Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
         const provider = new GoogleAuthProvider();
 
-        // Elemen DOM
-        const loginBtn = document.getElementById('loginBtn');
-        const heroLoginBtn = document.getElementById('heroLoginBtn');
-        const loginText = document.getElementById('loginText');
-        const userPhoto = document.getElementById('userPhoto');
-        const welcomeScreen = document.getElementById('welcomeScreen');
-        const appContent = document.getElementById('appContent');
-        const fabUpload = document.getElementById('fabUpload');
+        let currentUser = null;
+        let allApps = [];
 
-        // Fungsi Login Google
-        window.handleGoogleLogin = async () => {
-            try {
-                // Ubah tombol jadi loading
-                const originalText = heroLoginBtn.innerHTML;
-                heroLoginBtn.innerHTML = '<div class="spinner" style="width:20px;height:20px;border-width:2px;border-top-color:white;"></div> Mohon Tunggu...';
-                heroLoginBtn.disabled = true;
+        // --- AUTH ---
+        const login = () => signInWithPopup(auth, provider);
+        const logout = () => signOut(auth);
 
-                const result = await signInWithPopup(auth, provider);
-                // Login sukses, UI akan diupdate oleh onAuthStateChanged
-                console.log("Login sukses:", result.user);
-            } catch (error) {
-                console.error("Error login:", error);
-                alert("Gagal login. Pastikan Anda mengizinkan popup atau config Firebase sudah benar.");
-                
-                // Reset tombol
-                heroLoginBtn.innerHTML = originalText;
-                heroLoginBtn.disabled = false;
-            }
+        document.getElementById('loginBtn').onclick = login;
+        document.getElementById('heroLoginBtn').onclick = login;
+        document.getElementById('userImg').onclick = () => {
+            if(confirm("Logout dari AuraStore?")) logout();
         };
 
-        // Fungsi Logout
-        window.handleLogout = async () => {
-            await signOut(auth);
-            // UI akan diupdate oleh onAuthStateChanged
-        };
-
-        // Mendeteksi perubahan status Login/Logout
         onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // --- USER SUDAH LOGIN ---
-                // 1. Tutup welcome screen, tampilkan app content
-                welcomeScreen.style.display = 'none';
-                appContent.style.display = 'block';
-                fabUpload.style.display = 'flex';
-
-                // 2. Update Header (Foto profil, sembunyikan tombol login)
-                loginBtn.style.display = 'none';
-                userPhoto.style.display = 'block';
-                userPhoto.src = user.photoURL;
-
-                // 3. Load data dummy app (jika belum ada)
-                renderDummyApps();
+            currentUser = user;
+            if(user) {
+                document.getElementById('welcomeView').style.display = 'none';
+                document.getElementById('storeView').style.display = 'block';
+                document.getElementById('fabUpload').style.display = 'flex';
+                document.getElementById('loginBtn').style.display = 'none';
+                document.getElementById('userImg').style.display = 'block';
+                document.getElementById('userImg').src = user.photoURL;
+                fetchApps();
             } else {
-                // --- USER BELUM LOGIN ---
-                // 1. Tampilkan welcome screen, sembunyikan app content
-                welcomeScreen.style.display = 'flex';
-                appContent.style.display = 'none';
-                fabUpload.style.display = 'none';
-
-                // 2. Update Header (Tombol login, sembunyikan foto)
-                loginBtn.style.display = 'flex';
-                heroLoginBtn.innerHTML = '<i class="fab fa-google"></i> Masuk dengan Google';
-                heroLoginBtn.disabled = false;
-                loginText.innerText = "Login";
-                userPhoto.style.display = 'none';
+                document.getElementById('welcomeView').style.display = 'block';
+                document.getElementById('storeView').style.display = 'none';
+                document.getElementById('fabUpload').style.display = 'none';
+                document.getElementById('loginBtn').style.display = 'block';
+                document.getElementById('userImg').style.display = 'none';
             }
         });
 
-        // Dummy Data Render
-        function renderDummyApps() {
-            const grid = document.getElementById('appGrid');
-            if(grid.children.length > 0) return; // Cegah render berkali kali
+        // --- FETCH DATA (DENGAN SEARCH) ---
+        function fetchApps() {
+            const q = query(collection(db, "apps"), orderBy("createdAt", "desc"));
+            onSnapshot(q, (snapshot) => {
+                allApps = [];
+                snapshot.forEach(doc => allApps.push({id: doc.id, ...doc.data()}));
+                renderApps(allApps);
+            });
+        }
 
-            const apps = [
-                { title: "Minecraft PE", dev: "Mojang", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Minecraft_logo_%282011%E2%80%931019%29.svg/1200px-Minecraft_logo_%282011%E2%80%931019%29.svg.png", rating: "4.7 ★" },
-                { title: "Free Fire", dev: "Garena", icon: "https://play-lh.googleusercontent.com/OvK-eD5iK2y5muI9M-FfT_A4a8wXJg6N_Fl9likV9T5h0j5s1z5s1z5s1z5s1z5s1z", rating: "4.5 ★" },
-                { title: "PUBG Mobile", dev: "Tencent", icon: "https://play-lh.googleusercontent.com/KGut9g0L6-4d5u5u5u5u5u5u5u5u5u5u5u5u5u5u5u5u5u5u5u5u5u5u5u", rating: "4.6 ★" },
-                { title: "Instagram", dev: "Meta", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png", rating: "4.2 ★" },
-                { title: "TikTok", dev: "ByteDance", icon: "https://upload.wikimedia.org/wikipedia/en/a/a9
+        function renderApps(data) {
+            const grid = document.getElementById('appGrid');
+            grid.innerHTML = data.map(app => `
+                <div class="app-card" onclick="openDetail('${app.id}')">
+                    <img src="${app.icon}" class="app-icon" onerror="this.src='https://cdn-icons-png.flaticon.com/512/287/287221.png'">
+                    <h3>${app.name}</h3>
+                    <div class="app-rating">⭐ ${app.avgRating || '0'}</div>
+                    <small>${app.developer}</small>
+                </div>
+            `).join('');
+        }
+
+        // --- SEARCH FEATURE ---
+        document.getElementById('searchInput').oninput = (e) => {
+            const keyword = e.target.value.toLowerCase();
+            const filtered = allApps.filter(a => a.name.toLowerCase().includes(keyword));
+            renderApps(filtered);
+        };
+
+        // --- UPLOAD FEATURE ---
+        window.openUploadModal = () => document.getElementById('uploadModal').style.display = 'flex';
+        document.getElementById('openUpload').onclick = openUploadModal;
+        document.getElementById('closeUpload').onclick = () => document.getElementById('uploadModal').style.display = 'none';
+
+        document.getElementById('uploadForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const file = document.getElementById('upFile').files[0];
+            const name = document.getElementById('upName').value;
+            const icon = document.getElementById('upIcon').value;
+            const btn = document.getElementById('submitUpload');
+            const prog = document.getElementById('uploadProgress');
+
+            if(!file) return;
+
+            btn.disabled = true;
+            prog.style.display = 'block';
+
+            const storageRef = ref(storage, `apks/${Date.now()}_${file.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            uploadTask.on('state_changed', 
+                (snap) => {
+                    const pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+                    document.getElementById('percentText').innerText = pct + "% Uploading...";
+                },
+                (err) => { alert("Gagal upload file!"); btn.disabled = false; },
+                async () => {
+                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                    await addDoc(collection(db, "apps"), {
+                        name, icon, downloadURL,
+                        developer: currentUser.displayName,
+                        createdAt: Date.now(),
+                        avgRating: 0,
+                        commentCount: 0
+                    });
+                    alert("Aplikasi Berhasil Dipublikasikan!");
+                    document.getElementById('uploadModal').style.display = 'none';
+                    btn.disabled = false;
+                    prog.style.display = 'none';
+                    e.target.reset();
+                }
+            );
+        };
+
+        // --- DETAIL & COMMENT FEATURE ---
+        let activeAppId = null;
+        window.openDetail = (id) => {
+            activeAppId = id;
+            const app = allApps.find(a => a.id === id);
+            document.getElementById('detailBody').innerHTML = `
+                <img src="${app.icon}" class="app-icon">
+                <h2>${app.name}</h2>
+                <p>Developer: ${app.developer}</p>
+                <a href="${app.downloadURL}" target="_blank" class="btn-action" style="display:block; text-decoration:none; margin-top:15px">Download APK</a>
+            `;
+            document.getElementById('detailModal').style.display = 'flex';
+            fetchComments(id);
+        };
+
+        document.getElementById('closeDetail').onclick = () => document.getElementById('detailModal').style.display = 'none';
+
+        async function fetchComments(appId) {
+            const q = query(collection(db, "comments"), where("appId", "==", appId), orderBy("createdAt", "desc"));
+            onSnapshot(q, (snapshot) => {
+                const list = document.getElementById('commentList');
+                let html = "";
+                snapshot.forEach(doc => {
+                    const c = doc.data();
+                    html += `
+                        <div class="comment">
+                            <strong>${c.userName}</strong> (Rating: ${c.rating}⭐)
+                            <p>${c.text}</p>
+                        </div>
+                    `;
+                });
+                list.innerHTML = html || "<p style='text-align:center;color:#999'>Belum ada ulasan.</p>";
+            });
+        }
+
+        document.getElementById('submitComment').onclick = async () => {
+            const text = document.getElementById('userComment').value;
+            const rating = document.getElementById('userRating').value;
+            if(!text) return alert("Isi komentar dulu!");
+
+            await addDoc(collection(db, "comments"), {
+                appId: activeAppId,
+                userName: currentUser.displayName,
+                text,
+                rating: parseInt(rating),
+                createdAt: Date.now()
+            });
+            document.getElementById('userComment').value = "";
+            alert("Ulasan terkirim!");
+        };
+    </script>
+</body>
+    </html>
+    
